@@ -1,1 +1,252 @@
-# my-letter
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>گر یہ دل تمہارے نام لکھا جائ</title>
+
+  <!-- Urdu Nastaliq Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      font-family: 'Noto Nastaliq Urdu', serif;
+      background: #f8f1e0;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Floating hearts */
+    .heart {
+      position: absolute;
+      font-size: 20px;
+      color: #e74c3c;
+      opacity: 0.8;
+      animation: floatUp 6s linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(0.5); opacity:0;}
+      50% { opacity:1;}
+      100% { transform: translateY(-600px) scale(1); opacity:0;}
+    }
+
+    /* Paper Card */
+    .paper {
+      background: rgba(255, 245, 220, 0.95);
+      padding: 50px 40px;
+      max-width: 650px;
+      border-radius: 25px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      line-height: 2.2;
+      font-size: 22px;
+      color: #4b3b2b;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      animation: fadeIn 2s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      0% {opacity:0; transform: scale(0.95);}
+      100% {opacity:1; transform: scale(1);}
+    }
+
+    /* Candle Flicker */
+    .candle {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 15px;
+      height: 60px;
+      background: #f39c12;
+      border-radius: 10px 10px 2px 2px;
+      box-shadow: 0 0 20px rgba(243,156,18,0.6);
+      animation: flicker 0.3s infinite alternate;
+    }
+
+    @keyframes flicker {
+      0% { transform: scaleY(1); opacity: 0.8; box-shadow: 0 0 10px #f39c12;}
+      50% { transform: scaleY(1.1); opacity: 1; box-shadow: 0 0 25px #f39c12;}
+      100% { transform: scaleY(0.9); opacity: 0.9; box-shadow: 0 0 15px #f39c12;}
+    }
+
+    /* Buttons */
+    .buttons {
+      margin-top: 40px;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      position: relative;
+    }
+
+    .btn {
+      padding: 14px 32px;
+      font-size: 20px;
+      font-weight: bold;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.3s, background 0.3s;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      color: #fff;
+      position: relative;
+    }
+
+    #yesBtn {
+      background: linear-gradient(145deg, #76c893, #b9fbc0);
+    }
+
+    #noBtn {
+      background: linear-gradient(145deg, #e76f51, #f4a261);
+      position: absolute;
+    }
+
+    /* Confetti Animation */
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      opacity: 0.8;
+      z-index: 999;
+      pointer-events: none;
+    }
+
+    /* Message Overlay */
+    .messageOverlay {
+      position: absolute;
+      top:0; left:0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+      color: #fff;
+      font-size: 28px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      display: none;
+      animation: overlayFade 1s ease forwards;
+    }
+
+    @keyframes overlayFade {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating hearts -->
+  <div id="heartsContainer"></div>
+
+  <!-- Paper Card -->
+  <div class="paper">
+    <div style="font-size:28px; font-weight:bold; margin-bottom:20px;">گر یہ دل تمہارے نام لکھا جائ</div>
+
+    تمہاری ہر مسکان میری دنیا کو روشن کر دیتی ہے،<br>
+    تمہاری ہر بات دل کو خوش کر دیتی ہے۔<br><br>
+
+    ہر لمحہ تمہاری یاد میں جیتا ہوں،<br>
+    ہر سانس تمہارے لیے ہے، ہر خیال تمہارے نام ہے۔<br><br>
+
+    تمہاری ہنسی، تمہاری باتیں، تمہارا ہر لمس،<br>
+    یہ سب میری زندگی کی سب سے قیمتی حقیقتیں ہیں۔<br><br>
+
+    گر یہ دل تمہارے نام لکھا جائے،<br>
+    تو کیا تم اسے اپنی محبت کی چھاؤں میں بسنے دو گی؟ 💖<br>
+
+    <!-- Buttons -->
+    <div class="buttons">
+      <button id="yesBtn" class="btn">جی ہاں 💖</button>
+      <button id="noBtn" class="btn">نہیں 😅</button>
+    </div>
+
+    <!-- Candle -->
+    <div class="candle"></div>
+  </div>
+
+  <!-- Message Overlay -->
+  <div class="messageOverlay" id="messageOverlay">
+    ہاں! تم نے ہاں کہہ دی 💖<br>
+    اب میری دنیا تمہارے نام، اور ہر لمحہ خوشیوں سے بھرا ہوا 😍✨
+  </div>
+
+  <script>
+    // Floating hearts generator
+    const heartsContainer = document.getElementById('heartsContainer');
+    setInterval(() => {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = Math.random() * window.innerWidth + 'px';
+      heart.style.fontSize = 15 + Math.random() * 20 + 'px';
+      heart.innerHTML = '❤️';
+      heartsContainer.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 6000);
+    }, 500);
+
+    // "No" button stays fully inside screen
+    const noBtn = document.getElementById('noBtn');
+
+    noBtn.addEventListener('mouseenter', () => {
+      const padding = 10; // distance from edges
+      const btnWidth = noBtn.offsetWidth;
+      const btnHeight = noBtn.offsetHeight;
+
+      // Max allowed coordinates
+      const maxX = window.innerWidth - btnWidth - padding;
+      const maxY = window.innerHeight - btnHeight - padding;
+
+      // Random position inside viewport
+      const newX = padding + Math.random() * (maxX - padding);
+      const newY = padding + Math.random() * (maxY - padding);
+
+      noBtn.style.transform = `translate(${newX}px, ${newY}px)`;
+    });
+
+    // "Yes" button click
+    const yesBtn = document.getElementById('yesBtn');
+    const messageOverlay = document.getElementById('messageOverlay');
+
+    yesBtn.addEventListener('click', () => {
+      // Confetti effect
+      for (let i = 0; i < 150; i++) {
+        const confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+        confetti.style.left = Math.random() * window.innerWidth + 'px';
+        confetti.style.top = Math.random() * window.innerHeight + 'px';
+        confetti.style.backgroundColor = `hsl(${Math.random()*360}, 70%, 60%)`;
+        document.body.appendChild(confetti);
+        animateConfetti(confetti);
+      }
+
+      setTimeout(() => {
+        messageOverlay.style.display = 'flex';
+      }, 800);
+    });
+
+    function animateConfetti(el) {
+      const duration = 2000 + Math.random()*1000;
+      const endY = window.innerHeight + 50;
+      const endX = el.offsetLeft + (Math.random()*200 - 100);
+
+      el.animate([
+        { transform: `translate(0px,0px)` },
+        { transform: `translate(${endX - el.offsetLeft}px, ${endY - el.offsetTop}px)` }
+      ], {
+        duration: duration,
+        easing: 'ease-out'
+      });
+
+      setTimeout(() => el.remove(), duration);
+    }
+  </script>
+</body>
+</html>
